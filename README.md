@@ -7,10 +7,13 @@ This library is fairly special-purpose as it hijacks the `DD_TRACE_AGENT_URL` en
 ## Example Usage
 
 ```go
+var server *MockDatadogServer
+
 func TestMain(m *testing.M) {
-	server = doghouse.New()
-	defer server.Close()
-	os.Exit(m.Run())
+	server = New()
+	ret := m.Run()
+	server.Close()
+	os.Exit(ret)
 }
 
 func TestSpan(t *testing.T) {

@@ -12,8 +12,9 @@ var server *MockDatadogServer
 
 func TestMain(m *testing.M) {
 	server = New()
-	defer server.Close()
-	os.Exit(m.Run())
+	ret := m.Run()
+	server.Close()
+	os.Exit(ret)
 }
 
 func TestExpectSpanFn(t *testing.T) {
